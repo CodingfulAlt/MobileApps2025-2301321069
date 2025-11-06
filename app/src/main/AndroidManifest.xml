@@ -12,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitHero">
+
+        <activity android:name=".EditHabitActivity" />
+        <activity android:name=".HabitDetailsActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

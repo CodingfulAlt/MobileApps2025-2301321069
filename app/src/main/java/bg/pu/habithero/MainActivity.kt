@@ -1,47 +1,23 @@
 package bg.pu.habithero
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import bg.pu.habithero.ui.theme.HabitHeroTheme
+import bg.pu.habithero.databinding.ScreenHabitHubBinding
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var uiBindingHub: ScreenHabitHubBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            HabitHeroTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
+        uiBindingHub = ScreenHabitHubBinding.inflate(layoutInflater)
+        setContentView(uiBindingHub.root)
+
+        uiBindingHub.btnAddNewHabitCore.setOnClickListener {
+            val editorIntent = Intent(this, EditHabitActivity::class.java)
+            startActivity(editorIntent)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HabitHeroTheme {
-        Greeting("Android")
     }
 }
