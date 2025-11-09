@@ -18,6 +18,9 @@ class EditHabitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ScreenEditHabitBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.switchDailyReminderCore.isChecked =
+            HabitReminderScheduler.isEnabled(this)
+
 
         binding.btnSaveHabitCore.setOnClickListener {
             val name = binding.inputHabitNameCore.text.toString().trim()
@@ -50,6 +53,11 @@ class EditHabitActivity : AppCompatActivity() {
 
             vm.addHabit(habit)
             Toast.makeText(this, "Навик запазен", Toast.LENGTH_SHORT).show()
+            if (binding.switchDailyReminderCore.isChecked) {
+                HabitReminderScheduler.enableDailyReminder(this)
+            } else {
+                HabitReminderScheduler.disableDailyReminder(this)
+            }
             finish()
         }
     }
