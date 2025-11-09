@@ -14,7 +14,7 @@ class EditHabitActivity : AppCompatActivity() {
     private lateinit var binding: ScreenEditHabitBinding
     private val vm: HabitViewModel by viewModels()
 
-    // ако е null създаваме нов; ако не е null редактираме
+    // null → нов навик, != null → редакция
     private var currentHabit: Habit? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,18 +22,14 @@ class EditHabitActivity : AppCompatActivity() {
         binding = ScreenEditHabitBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Проверяваме дали сме дошли за EDIT
         val habitId = intent.getIntExtra("habit_id", -1)
         if (habitId != -1) {
-            // сменяме текста на бутона за да е по-ясно
             binding.btnSaveHabitCore.text = "Запази промените"
 
-            // наблюдаваме списъка и взимаме навика по id
             vm.habits.observe(this) { list ->
                 val h = list.firstOrNull { it.id == habitId }
                 if (h != null) {
                     currentHabit = h
-                    // попълваме полетата
                     binding.inputHabitNameCore.setText(h.name)
                     binding.inputHabitDescriptionCore.setText(h.description ?: "")
                     binding.inputGoalPerDayCore.setText(h.goalPerDay.toString())
@@ -46,11 +42,11 @@ class EditHabitActivity : AppCompatActivity() {
             val desc = binding.inputHabitDescriptionCore.text.toString().trim()
             val goalText = binding.inputGoalPerDayCore.text.toString().trim()
 
-            // validation
             if (name.isEmpty()) {
                 binding.inputHabitNameCore.error = "Въведи име"
                 return@setOnClickListener
             }
+
             val goal = goalText.toIntOrNull()
             if (goal == null || goal <= 0) {
                 binding.inputGoalPerDayCore.error = "Въведи положително число"
@@ -61,7 +57,6 @@ class EditHabitActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // ако currentHabit != null правим copy със сменени полета
             val habitToSave = currentHabit?.copy(
                 name = name,
                 description = if (desc.isEmpty()) null else desc,
@@ -84,8 +79,7 @@ class EditHabitActivity : AppCompatActivity() {
             Toast.makeText(this, "Навик запазен", Toast.LENGTH_SHORT).show()
             finish()
         }
-        binding.btnBackFromEditHabitCore.setOnClickListener {
-            finish()
-        }
+
+        binding.btnBackFromEditHabitCore.setOnClickListener { finish() }
     }
 }

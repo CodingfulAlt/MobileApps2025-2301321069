@@ -1,11 +1,11 @@
 package bg.pu.habithero
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import bg.pu.habithero.databinding.ScreenHabitDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import android.content.Intent
 
 @AndroidEntryPoint
 class HabitDetailsActivity : AppCompatActivity() {
@@ -26,14 +26,21 @@ class HabitDetailsActivity : AppCompatActivity() {
             return
         }
 
-        // observe one by id
         vm.habits.observe(this) { list ->
             val h = list.firstOrNull { it.id == id }
             if (h != null) {
                 currentHabit = h
                 binding.textDetailsNameCore.text = h.name
-                binding.textDetailsDescriptionCore.text =
-                    if (h.description.isNullOrBlank()) "(няма въведено описание)" else h.description
+
+                // Тук вече слагаме само съдържанието, без "Описание:"
+                val descText = if (h.description.isNullOrBlank()) {
+                    "(няма въведено описание)"
+                } else {
+                    h.description
+                }
+                binding.textDetailsDescriptionCore.text = descText
+
+                // Само число + "пъти" – етикетът е в отделния TextView
                 binding.textDetailsGoalCore.text = "${h.goalPerDay} пъти"
             } else {
                 binding.textDetailsNameCore.text = "Няма навик"
@@ -46,8 +53,12 @@ class HabitDetailsActivity : AppCompatActivity() {
 
         binding.btnEditHabitCore.setOnClickListener {
             val habit = currentHabit ?: return@setOnClickListener
-            val i = Intent(this, EditHabitActivity::class.java)
-            i.putExtra("habit_id", habit.id)
+            val i = Intent(this, EditHabitActivity::class.java).apply {
+                putExtra("habit_id", habit.id)
+                putExtra("habit_name", habit.name)
+                putExtra("habit_desc", habit.description)
+                putExtra("habit_goal", habit.goalPerDay)
+            }
             startActivity(i)
         }
 
