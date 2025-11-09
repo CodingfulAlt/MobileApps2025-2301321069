@@ -19,34 +19,62 @@
             android:id="@+id/layoutDetailsContentCore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
 
+            <!-- Име на навика -->
             <TextView
                 android:id="@+id/textDetailsNameCore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Име на навика"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="?android:textColorPrimary" />
 
+            <!-- Етикет за описание -->
+            <TextView
+                android:id="@+id/labelDescriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Описание:"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="2dp" />
+
+            <!-- Текст на описанието -->
             <TextView
                 android:id="@+id/textDetailsDescriptionCore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Описание на навика..."
-                android:paddingTop="8dp" />
+                android:text="(няма въведено описание)"
+                android:textColor="?android:textColorSecondary"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Етикет за цел -->
+            <TextView
+                android:id="@+id/labelGoalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Цел за деня:"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginBottom="4dp" />
+
+            <!-- Стойност на целта -->
             <TextView
                 android:id="@+id/textDetailsGoalCore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Цел за деня: 0 пъти"
-                android:paddingTop="8dp"
-                android:textStyle="bold"
+                android:text="1 пъти"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="16sp" />
-
         </LinearLayout>
     </ScrollView>
 
+    <!-- Бутоните -->
     <Button
         android:id="@+id/btnEditHabitCore"
         android:layout_width="0dp"
@@ -85,5 +113,4 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

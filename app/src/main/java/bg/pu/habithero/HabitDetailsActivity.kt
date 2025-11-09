@@ -32,11 +32,13 @@ class HabitDetailsActivity : AppCompatActivity() {
             if (h != null) {
                 currentHabit = h
                 binding.textDetailsNameCore.text = h.name
-                binding.textDetailsDescriptionCore.text = h.description ?: ""
-                binding.textDetailsGoalCore.text = "Цел за деня: ${h.goalPerDay} пъти"
+                binding.textDetailsDescriptionCore.text =
+                    if (h.description.isNullOrBlank()) "(няма въведено описание)" else h.description
+                binding.textDetailsGoalCore.text = "${h.goalPerDay} пъти"
             } else {
                 binding.textDetailsNameCore.text = "Няма навик"
                 binding.textDetailsDescriptionCore.text = ""
+                binding.textDetailsGoalCore.text = ""
             }
         }
 
