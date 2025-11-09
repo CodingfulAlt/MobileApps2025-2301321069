@@ -34,8 +34,8 @@ class EditHabitActivity : AppCompatActivity() {
                 binding.inputGoalPerDayCore.error = "Въведи положително число"
                 return@setOnClickListener
             }
-            if (goal > 20) {
-                binding.inputGoalPerDayCore.error = "Максимум 20"
+            if (goal > 365) {
+                binding.inputGoalPerDayCore.error = "Максимум 365 (до една година)"
                 return@setOnClickListener
             }
 
