@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import bg.pu.habithero.databinding.ScreenHabitDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.appcompat.widget.SwitchCompat
+import android.content.Intent
 
 @AndroidEntryPoint
 class HabitDetailsActivity : AppCompatActivity() {
@@ -33,6 +33,7 @@ class HabitDetailsActivity : AppCompatActivity() {
                 currentHabit = h
                 binding.textDetailsNameCore.text = h.name
                 binding.textDetailsDescriptionCore.text = h.description ?: ""
+                binding.textDetailsGoalCore.text = "Цел за деня: ${h.goalPerDay} пъти"
             } else {
                 binding.textDetailsNameCore.text = "Няма навик"
                 binding.textDetailsDescriptionCore.text = ""
@@ -40,6 +41,14 @@ class HabitDetailsActivity : AppCompatActivity() {
         }
 
         binding.btnBackFromDetails.setOnClickListener { finish() }
+
+        binding.btnEditHabitCore.setOnClickListener {
+            val habit = currentHabit ?: return@setOnClickListener
+            val i = Intent(this, EditHabitActivity::class.java)
+            i.putExtra("habit_id", habit.id)
+            startActivity(i)
+        }
+
         binding.btnCompleteHabitCore.setOnClickListener {
             currentHabit?.let { habit ->
                 vm.deleteHabit(habit)

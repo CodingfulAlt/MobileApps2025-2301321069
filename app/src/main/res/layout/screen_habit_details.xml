@@ -35,9 +35,30 @@
                 android:layout_height="wrap_content"
                 android:text="Описание на навика..."
                 android:paddingTop="8dp" />
+            <TextView
+                android:id="@+id/textDetailsGoalCore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Цел за деня: 0 пъти"
+                android:paddingTop="8dp"
+                android:textStyle="bold"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnEditHabitCore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="РЕДАКТИРАЙ"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCompleteHabitCore"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/btnCompleteHabitCore"

@@ -14,12 +14,32 @@ class EditHabitActivity : AppCompatActivity() {
     private lateinit var binding: ScreenEditHabitBinding
     private val vm: HabitViewModel by viewModels()
 
+    // ако е null създаваме нов; ако не е null редактираме
+    private var currentHabit: Habit? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ScreenEditHabitBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Проверяваме дали сме дошли за EDIT
+        val habitId = intent.getIntExtra("habit_id", -1)
+        if (habitId != -1) {
+            // сменяме текста на бутона за да е по-ясно
+            binding.btnSaveHabitCore.text = "Запази промените"
 
+            // наблюдаваме списъка и взимаме навика по id
+            vm.habits.observe(this) { list ->
+                val h = list.firstOrNull { it.id == habitId }
+                if (h != null) {
+                    currentHabit = h
+                    // попълваме полетата
+                    binding.inputHabitNameCore.setText(h.name)
+                    binding.inputHabitDescriptionCore.setText(h.description ?: "")
+                    binding.inputGoalPerDayCore.setText(h.goalPerDay.toString())
+                }
+            }
+        }
 
         binding.btnSaveHabitCore.setOnClickListener {
             val name = binding.inputHabitNameCore.text.toString().trim()
@@ -41,7 +61,12 @@ class EditHabitActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val habit = Habit(
+            // ако currentHabit != null правим copy със сменени полета
+            val habitToSave = currentHabit?.copy(
+                name = name,
+                description = if (desc.isEmpty()) null else desc,
+                goalPerDay = goal
+            ) ?: Habit(
                 name = name,
                 description = if (desc.isEmpty()) null else desc,
                 goalPerDay = goal,
@@ -50,9 +75,16 @@ class EditHabitActivity : AppCompatActivity() {
                 createdAt = System.currentTimeMillis()
             )
 
-            vm.addHabit(habit)
+            if (currentHabit == null) {
+                vm.addHabit(habitToSave)
+            } else {
+                vm.updateHabit(habitToSave)
+            }
+
             Toast.makeText(this, "Навик запазен", Toast.LENGTH_SHORT).show()
-          
+            finish()
+        }
+        binding.btnBackFromEditHabitCore.setOnClickListener {
             finish()
         }
     }

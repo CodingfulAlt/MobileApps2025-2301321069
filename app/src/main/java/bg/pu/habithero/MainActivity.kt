@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
-        // ТУК ползваме recyclerHabits от XML, НЕ създаваме нов RecyclerView
+        // олзваме recyclerHabits от XML, НЕ създаваме нов RecyclerView
         binding.recyclerHabits.layoutManager = LinearLayoutManager(this)
         binding.recyclerHabits.adapter = adapter
 

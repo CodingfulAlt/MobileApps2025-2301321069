@@ -24,7 +24,7 @@ class HabitReminderReceiver : BroadcastReceiver() {
         }
 
         val builder = NotificationCompat.Builder(context, "habit_reminder_channel")
-            .setSmallIcon(R.mipmap.ic_launcher)   // после ще го сменим с наша иконка
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("HabitHero")
             .setContentText("Не забравяй навиците си днес!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
