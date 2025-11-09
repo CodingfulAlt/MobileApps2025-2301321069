@@ -3,11 +3,8 @@ package bg.pu.habithero.data.repository
 import bg.pu.habithero.data.local.dao.HabitDao
 import bg.pu.habithero.data.local.entity.Habit
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class HabitRepository @Inject constructor(
+class HabitRepository(
     private val habitDao: HabitDao
 ) {
 
