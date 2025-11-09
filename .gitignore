@@ -13,6 +13,8 @@ captures/
 .externalNativeBuild/
 .cxx/
 *.apk
+# allow the release apk for classroom
+!apk/app-release.apk
 *.aab
 output-metadata.json
 

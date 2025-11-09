@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import bg.pu.habithero.databinding.ScreenHabitHubBinding
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -35,6 +37,21 @@ class MainActivity : AppCompatActivity() {
         // ТУК ползваме recyclerHabits от XML, НЕ създаваме нов RecyclerView
         binding.recyclerHabits.layoutManager = LinearLayoutManager(this)
         binding.recyclerHabits.adapter = adapter
+
+        val swipeToDeleteCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val habit = adapter.currentList[viewHolder.adapterPosition]
+                vm.deleteHabit(habit)
+            }
+        }
+
+        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.recyclerHabits)
 
         vm.habits.observe(this) { list ->
             adapter.submitList(list)
