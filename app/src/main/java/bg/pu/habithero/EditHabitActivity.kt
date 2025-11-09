@@ -34,6 +34,10 @@ class EditHabitActivity : AppCompatActivity() {
                 binding.inputGoalPerDayCore.error = "Въведи положително число"
                 return@setOnClickListener
             }
+            if (goal > 20) {
+                binding.inputGoalPerDayCore.error = "Максимум 20"
+                return@setOnClickListener
+            }
 
             val habit = Habit(
                 name = name,

@@ -12,6 +12,8 @@ class HabitDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ScreenHabitDetailsBinding
     private val vm: HabitViewModel by viewModels()
 
+    private var currentHabit: bg.pu.habithero.data.local.entity.Habit? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ScreenHabitDetailsBinding.inflate(layoutInflater)
@@ -27,11 +29,21 @@ class HabitDetailsActivity : AppCompatActivity() {
         vm.habits.observe(this) { list ->
             val h = list.firstOrNull { it.id == id }
             if (h != null) {
+                currentHabit = h
                 binding.textDetailsNameCore.text = h.name
                 binding.textDetailsDescriptionCore.text = h.description ?: ""
+            } else {
+                binding.textDetailsNameCore.text = "Няма навик"
+                binding.textDetailsDescriptionCore.text = ""
             }
         }
 
         binding.btnBackFromDetails.setOnClickListener { finish() }
+        binding.btnCompleteHabitCore.setOnClickListener {
+            currentHabit?.let { habit ->
+                vm.deleteHabit(habit)
+                finish()
+            }
+        }
     }
 }
