@@ -23,7 +23,7 @@
 
         <activity android:name=".EditHabitActivity" />
         <activity android:name=".HabitDetailsActivity" />
-
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

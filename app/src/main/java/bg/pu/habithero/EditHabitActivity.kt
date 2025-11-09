@@ -18,8 +18,7 @@ class EditHabitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ScreenEditHabitBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.switchDailyReminderCore.isChecked =
-            HabitReminderScheduler.isEnabled(this)
+
 
 
         binding.btnSaveHabitCore.setOnClickListener {
@@ -37,8 +36,8 @@ class EditHabitActivity : AppCompatActivity() {
                 binding.inputGoalPerDayCore.error = "Въведи положително число"
                 return@setOnClickListener
             }
-            if (goal > 365) {
-                binding.inputGoalPerDayCore.error = "Максимум 365 (до една година)"
+            if (goal > 20) {
+                binding.inputGoalPerDayCore.error = "Максимум 20 пъти на ден"
                 return@setOnClickListener
             }
 
@@ -53,11 +52,7 @@ class EditHabitActivity : AppCompatActivity() {
 
             vm.addHabit(habit)
             Toast.makeText(this, "Навик запазен", Toast.LENGTH_SHORT).show()
-            if (binding.switchDailyReminderCore.isChecked) {
-                HabitReminderScheduler.enableDailyReminder(this)
-            } else {
-                HabitReminderScheduler.disableDailyReminder(this)
-            }
+          
             finish()
         }
     }

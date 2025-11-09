@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import bg.pu.habithero.databinding.ScreenHabitDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.widget.SwitchCompat
 
 @AndroidEntryPoint
 class HabitDetailsActivity : AppCompatActivity() {

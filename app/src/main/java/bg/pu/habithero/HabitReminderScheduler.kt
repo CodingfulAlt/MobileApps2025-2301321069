@@ -9,38 +9,45 @@ import java.util.Calendar
 
 object HabitReminderScheduler {
 
-    private const val REQUEST_CODE = 2001
     private const val PREF_KEY_ENABLED = "habit_daily_reminder_enabled"
+    private const val REQUEST_CODE_15 = 2001
+    private const val REQUEST_CODE_20 = 2002
 
-    private fun buildPendingIntent(context: Context): PendingIntent {
+    private fun buildPendingIntent(context: Context, requestCode: Int): PendingIntent {
         val intent = Intent(context, HabitReminderReceiver::class.java)
         return PendingIntent.getBroadcast(
             context,
-            REQUEST_CODE,
+            requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
-    fun enableDailyReminder(context: Context) {
+    private fun scheduleDailyAt(context: Context, hour: Int, requestCode: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 20)  // 20:00
+        val now = Calendar.getInstance()
+        val triggerTime = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
-            if (before(Calendar.getInstance())) {
+            set(Calendar.MILLISECOND, 0)
+            if (before(now)) {
                 add(Calendar.DATE, 1)
             }
         }
 
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
+            triggerTime.timeInMillis,
             AlarmManager.INTERVAL_DAY,
-            buildPendingIntent(context)
+            buildPendingIntent(context, requestCode)
         )
+    }
+
+    fun enableDailyReminder(context: Context) {
+        scheduleDailyAt(context, 15, REQUEST_CODE_15)
+        scheduleDailyAt(context, 20, REQUEST_CODE_20)
 
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
@@ -50,7 +57,8 @@ object HabitReminderScheduler {
 
     fun disableDailyReminder(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(buildPendingIntent(context))
+        alarmManager.cancel(buildPendingIntent(context, REQUEST_CODE_15))
+        alarmManager.cancel(buildPendingIntent(context, REQUEST_CODE_20))
 
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()

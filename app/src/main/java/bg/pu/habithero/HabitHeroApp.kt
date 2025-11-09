@@ -11,16 +11,15 @@ class HabitHeroApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel()
-    }
 
-    private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "habit_reminder_channel",
-                "Напомняния за навици",
+                "Habit reminders",
                 NotificationManager.IMPORTANCE_DEFAULT
-            )
+            ).apply {
+                description = "Дневни напомняния за навиците ти"
+            }
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)
         }
