@@ -30,6 +30,10 @@
             android:id="@+id/inputHabitNameCore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:hint="@string/habit_name_hint"
             android:inputType="textPersonName" />
 
         <TextView
@@ -46,6 +50,10 @@
             android:id="@+id/inputHabitDescriptionCore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:hint="@string/habit_description_hint"
             android:inputType="textMultiLine" />
 
         <TextView
@@ -62,8 +70,14 @@
             android:id="@+id/inputGoalPerDayCore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:hint="@string/habit_goal_per_day_hint"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="2"
+            android:importantForAutofill="no" />
+
     </LinearLayout>
 
 

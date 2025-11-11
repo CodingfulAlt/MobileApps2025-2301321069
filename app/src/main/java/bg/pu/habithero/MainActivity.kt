@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             },
             onLongClick = { habit ->
-                // за момента директно трием; по-нататък може да сложим диалог
                 vm.deleteHabit(habit)
             }
         )
