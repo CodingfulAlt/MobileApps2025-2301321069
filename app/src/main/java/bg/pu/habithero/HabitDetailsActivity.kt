@@ -1,7 +1,7 @@
 package bg.pu.habithero
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import bg.pu.habithero.databinding.ScreenHabitDetailsBinding
@@ -32,7 +32,6 @@ class HabitDetailsActivity : AppCompatActivity() {
                 currentHabit = h
                 binding.textDetailsNameCore.text = h.name
 
-                // Тук вече слагаме само съдържанието, без "Описание:"
                 val descText = if (h.description.isNullOrBlank()) {
                     "(няма въведено описание)"
                 } else {
@@ -40,7 +39,6 @@ class HabitDetailsActivity : AppCompatActivity() {
                 }
                 binding.textDetailsDescriptionCore.text = descText
 
-                // Само число + "пъти" – етикетът е в отделния TextView
                 binding.textDetailsGoalCore.text = "${h.goalPerDay} пъти"
             } else {
                 binding.textDetailsNameCore.text = "Няма навик"
@@ -67,6 +65,27 @@ class HabitDetailsActivity : AppCompatActivity() {
                 vm.deleteHabit(habit)
                 finish()
             }
+        }
+
+        binding.btnShareHabitCore.setOnClickListener {
+            val habit = currentHabit ?: return@setOnClickListener
+
+            val shareText = buildString {
+                append("🌿 Навик: ${habit.name}\n")
+                if (!habit.description.isNullOrBlank()) {
+                    append("📖 Описание: ${habit.description}\n")
+                }
+                append("🎯 Цел за деня: ${habit.goalPerDay} пъти\n")
+                append("\nСподелено чрез Habit Hero 💪")
+            }
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, shareText)
+            }
+
+            val chooser = Intent.createChooser(shareIntent, "Сподели навика чрез...")
+            startActivity(chooser)
         }
     }
 }
