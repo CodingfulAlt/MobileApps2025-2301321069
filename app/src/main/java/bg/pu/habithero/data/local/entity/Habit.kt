@@ -9,7 +9,7 @@ data class Habit(
     val name: String,
     val description: String?,
     val goalPerDay: Int,
-    val reminderHour: Int?,   // 0..23
-    val icon: String?,        // emoji или име на икона
-    val createdAt: Long       // System.currentTimeMillis()
+    val reminderHour: Int?, // 0..23
+    val icon: String?, // emoji или име на икона
+    val createdAt: Long // System.currentTimeMillis()
 )

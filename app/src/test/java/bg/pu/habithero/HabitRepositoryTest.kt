@@ -63,4 +63,3 @@ class HabitRepositoryTest {
         verify(dao).deleteHabit(habit)
     }
 }
-

@@ -27,13 +27,16 @@ class HabitHeroApp : Application() {
             manager.createNotificationChannel(channel)
         }
 
-        //прилагаме запазената тема
+        // прилагаме запазената тема
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val isDark = prefs.getBoolean("pref_dark_theme", false)
 
         AppCompatDelegate.setDefaultNightMode(
-            if (isDark) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
+            if (isDark) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
         )
     }
 }

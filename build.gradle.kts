@@ -6,5 +6,6 @@ plugins {
 
     // Hilt Gradle plugin (за DI)
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
-
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.0" apply false
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
 }

@@ -16,7 +16,7 @@ class SettingsActivity : AppCompatActivity() {
         binding = ScreenSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Нотификации
+        // Нотификации
         binding.switchNotificationsCore.isChecked =
             HabitReminderScheduler.isEnabled(this)
 
@@ -29,7 +29,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        //Тъмна тема
+        // Тъмна тема
         val isDark = prefs.getBoolean("pref_dark_theme", false)
         binding.switchDarkThemeCore.isChecked = isDark
 
@@ -37,8 +37,11 @@ class SettingsActivity : AppCompatActivity() {
             prefs.edit().putBoolean("pref_dark_theme", checked).apply()
 
             AppCompatDelegate.setDefaultNightMode(
-                if (checked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
+                if (checked) {
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_NO
+                }
             )
         }
 

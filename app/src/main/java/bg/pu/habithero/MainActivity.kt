@@ -1,20 +1,19 @@
 package bg.pu.habithero
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import bg.pu.habithero.databinding.ScreenHabitHubBinding
-import dagger.hilt.android.AndroidEntryPoint
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import bg.pu.habithero.databinding.ScreenHabitHubBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-
 
         adapter = HabitListAdapter(
             onClick = { habit ->

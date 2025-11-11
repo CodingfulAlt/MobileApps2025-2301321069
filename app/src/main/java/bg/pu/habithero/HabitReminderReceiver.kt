@@ -12,7 +12,6 @@ import androidx.core.app.NotificationManagerCompat
 class HabitReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
-
         // За Android 13+ трябва да проверим POST_NOTIFICATIONS
         if (ActivityCompat.checkSelfPermission(
                 context,
