@@ -133,7 +133,7 @@ View (Activity) → ViewModel → Repository → DAO → Room Database
 - Проверен с `ktlintCheck` и `detekt` — **0 нарушения**  
 - LeakCanary интегриран — **няма memory leaks**  
 - `minifyEnabled true` и `R8` активирани за release build  
-- Unit тестово покритие: **75% success (JUnit + Mockito)**  
+- Unit тестово покритие: **100% success (JUnit + Mockito)**  
 - Espresso тестове: **100% success на API 34**
 
 ---
